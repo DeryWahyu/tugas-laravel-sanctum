@@ -67,7 +67,7 @@ class AuthController extends Controller
         }
     }
 
-    // Logout
+    // Logout untuk melakukan endpoint
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
