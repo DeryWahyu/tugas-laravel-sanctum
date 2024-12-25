@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Kategori;
 
 class KategoriController extends Controller
 {
@@ -13,7 +12,7 @@ class KategoriController extends Controller
         return response()->json(Kategori::all(), 200);
     }
 
-    // method untuk menambah data kategori baru
+    // method untuk menambah data kategori
     public function store(Request $request)
     {
         $validated = $request->validate(['name' => 'required|unique:kategoris']);
@@ -21,13 +20,13 @@ class KategoriController extends Controller
         return response()->json($kategori, 201);
     }
 
-    // method untuk menampilkan data kategori berdasarkan id
+    // method untuk menampilkan 1 data kategori berdasarkan id
     public function show(Kategori $kategori)
     {
         return response()->json($kategori, 200);
     }
 
-    // method untuk mengupdate data kategori
+    // method untuk mengupdate 1 data kategori berdasarkan id
     public function update(Request $request, Kategori $kategori)
     {
         $validated = $request->validate(['name' => 'required|unique:kategoris,name,' . $kategori->id]);
@@ -35,7 +34,7 @@ class KategoriController extends Controller
         return response()->json($kategori, 200);
     }
 
-    // method untuk menghapus data kategori
+    // method untuk menghapus 1 data kategori berdasarkan id
     public function destroy(Kategori $kategori)
     {
         $kategori->delete();

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Produk;
 
-class produkController extends Controller
+class ProdukController extends Controller
 {
     // method untuk menampilkan semua data produk
     public function index()
@@ -13,7 +12,7 @@ class produkController extends Controller
         return response()->json(Produk::with('kategori')->get(), 200);
     }
 
-    // method untuk menambah data produk baru
+    // method untuk menambah data produk
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -32,13 +31,13 @@ class produkController extends Controller
         return response()->json($produk->load('kategori'), 201);
     }
 
-    // method untuk menampilkan data produk berdasarkan id
+    // method untuk menampilkan 1 data produk berdasarkan id
     public function show(Produk $produk)
     {
         return response()->json($produk->load('kategori'), 200);
     }
 
-    // method untuk mengupdate data produk
+    // method untuk mengupdate 1 data produk berdasarkan id
     public function update(Request $request, Produk $produk)
     {
         $validated = $request->validate([
@@ -60,7 +59,7 @@ class produkController extends Controller
         return response()->json($produk->load('kategori'), 200);
     }
 
-    // method untuk menghapus data produk
+    // method untuk menghapus 1 data produk berdasarkan id
     public function destroy(Produk $produk)
     {
         if ($produk->image) {
