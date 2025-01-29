@@ -4,9 +4,26 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriViewController;
 use App\Http\Controllers\ProdukViewController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Route untuk register
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+// Route untuk login
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+// Route untuk logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route kategori (hanya untuk user yang login)
+Route::middleware('auth')->group(function () {
+    Route::get('/kategori', [KategoriViewController::class, 'index'])->name('kategori.index');
 });
 
 // Routes untuk Kategori
