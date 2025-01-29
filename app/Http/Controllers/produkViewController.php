@@ -31,25 +31,28 @@ class produkViewController extends Controller
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    public function edit(ProdukView $produk)
+    public function edit($id)
     {
+        $produk = ProdukView::findOrFail($id);
         $kategoris = KategoriView::all();
         return view('produk.edit', compact('produk', 'kategoris'));
     }
 
-    public function update(Request $request, ProdukView $produk)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nama' => 'required',
             'harga' => 'required|numeric',
             'kategori_id' => 'required|exists:kategori_views,id',
         ]);
+        $produk = ProdukView::findOrFail($id);
         $produk->update($request->all());
         return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
-    public function destroy(ProdukView $produk)
+    public function destroy($id)
     {
+        $produk = ProdukView::findOrFail($id);
         $produk->delete();
         return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
     }

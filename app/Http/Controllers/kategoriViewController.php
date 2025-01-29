@@ -25,20 +25,23 @@ class kategoriViewController extends Controller
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
-    public function edit(KategoriView $kategori)
+    public function edit($id)
     {
+        $kategori = KategoriView::findOrFail($id);
         return view('kategori.edit', compact('kategori'));
     }
 
-    public function update(Request $request, KategoriView $kategori)
+    public function update(Request $request, $id)
     {
         $request->validate(['nama' => 'required']);
+        $kategori = KategoriView::findOrFail($id);
         $kategori->update($request->all());
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
-    public function destroy(KategoriView $kategori)
+    public function destroy($id)
     {
+        $kategori = KategoriView::findOrFail($id);
         $kategori->delete();
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
     }
